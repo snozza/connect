@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.snozza.connect4.Connect4Spec" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-01-02T11:35:41" hostname="FT-MW4576" time="0.012">
+  <properties/>
+  <testcase name="whenFirstDiscInsertedInColumnThenPositionIsZero" classname="com.snozza.connect4.Connect4Spec" time="0.005"/>
+  <testcase name="whenDiscOutsideBoardThenRuntimeException" classname="com.snozza.connect4.Connect4Spec" time="0.003"/>
+  <testcase name="whenDiscInsertedThenNumberOfDiscsIncreases" classname="com.snozza.connect4.Connect4Spec" time="0.001"/>
+  <testcase name="whenSecondDiscInsertedInColumnThenPositionIsOne" classname="com.snozza.connect4.Connect4Spec" time="0.0"/>
+  <testcase name="whenNoMoreRoomInColumnThenRuntimeException" classname="com.snozza.connect4.Connect4Spec" time="0.001"/>
+  <testcase name="whenTheGameIsStartedTheBoardIsEmpty" classname="com.snozza.connect4.Connect4Spec" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
