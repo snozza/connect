@@ -91,13 +91,35 @@ public class Connect4 {
     }
 
     private void checkWinner(int row, int column) {
-        String color = board[row][column];
-        Pattern winPattern = Pattern.compile(".*" + color + "{" + DISCS_TO_WIN + "}.*");
-        String vertical = IntStream.range(0, ROWS)
-                .mapToObj(r -> board[r][column])
-                .reduce(String::concat).get();
-        System.out.println(vertical);
-        if (winPattern.matcher(vertical).matches())
-            winner = color;
+        if (winner.isEmpty()) {
+            String color = board[row][column];
+            Pattern winPattern = Pattern.compile(".*" + color + "{" + DISCS_TO_WIN + "}.*");
+            String vertical = IntStream.range(0, ROWS)
+                    .mapToObj(r -> board[r][column])
+                    .reduce(String::concat).get();
+            if (winPattern.matcher(vertical).matches()) {
+                winner = color;
+            }
+
+            if (winner.isEmpty()) {
+                String horizontal = Stream.of(board[row]).reduce(String::concat).get();
+                if (winPattern.matcher(horizontal).matches()) {
+                    winner = color;
+                }
+            }
+
+            if (winner.isEmpty()) {
+                int startOffset = Math.min(column, row);
+                int myColumn = column - startOffset;
+                int myRow = row - startOffset;
+                StringJoiner stringJoiner = new StringJoiner("");
+                do {
+                    stringJoiner.add(board[myRow++][myColumn++]);
+                } while (myColumn < COLUMNS && myRow < ROWS);
+                if (winPattern.matcher(stringJoiner.toString()).matches()) {
+                    winner = currentPlayer;
+                }
+            }
+        }
     }
 }
