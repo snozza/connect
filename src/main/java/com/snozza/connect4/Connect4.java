@@ -51,6 +51,10 @@ public class Connect4 {
         }
     }
 
+    public boolean isFinished() {
+        return getNumberOfDiscs() == ROWS * COLUMNS;
+    }
+
     public int putDiscInColumn(int column) {
         checkColumn(column);
         int row = getNumberOfDiscsInColumn(column);

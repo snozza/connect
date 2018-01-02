@@ -96,4 +96,19 @@ public class Connect4Spec {
         tested.putDiscInColumn(column);
         assertThat(output.toString(), containsString("| |R| | | | | |"));
     }
+
+    @Test
+    public void whenTheGameStartsItIsNotFinished() {
+        assertFalse("The game is not finished", tested.isFinished());
+    }
+
+    @Test
+    public void whenNoDiscCanBeIntroducedThenGameIsFinished() {
+        for (int row = 0; row < 6; row++) {
+            for (int column = 0; column < 7; column++) {
+                tested.putDiscInColumn(column);
+            }
+        }
+        assertTrue("The game is finished", tested.isFinished());
+    }
 }
