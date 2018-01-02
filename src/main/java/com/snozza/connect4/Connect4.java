@@ -3,6 +3,7 @@ package com.snozza.connect4;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.StringJoiner;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -10,12 +11,14 @@ public class Connect4 {
 
     private static final int ROWS = 6;
     private static final int COLUMNS = 7;
+    private static final int DISCS_TO_WIN = 4;
     private static final String EMPTY = " ";
     private static final String RED = "R";
     private static final String GREEN = "G";
     private static final String DELIMITER = "|";
 
     private PrintStream outputChannel;
+    private String winner = "";
     private String currentPlayer = "R";
     private String[][] board = new String[ROWS][COLUMNS];
 
@@ -61,6 +64,7 @@ public class Connect4 {
         checkInsertPosition(row, column);
         board[row][column] = getCurrentPlayer();
         printBoard();
+        checkWinner(row, column);
         switchPlayer();
         return row;
     }
@@ -80,5 +84,20 @@ public class Connect4 {
     private int getNumberOfDiscsInColumn(int column) {
         return (int) IntStream.range(0, ROWS)
                     .filter(row -> !EMPTY.equals(board[row][column])).count();
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    private void checkWinner(int row, int column) {
+        String color = board[row][column];
+        Pattern winPattern = Pattern.compile(".*" + color + "{" + DISCS_TO_WIN + "}.*");
+        String vertical = IntStream.range(0, ROWS)
+                .mapToObj(r -> board[r][column])
+                .reduce(String::concat).get();
+        System.out.println(vertical);
+        if (winPattern.matcher(vertical).matches())
+            winner = color;
     }
 }

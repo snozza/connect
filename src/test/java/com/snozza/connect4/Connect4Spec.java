@@ -11,6 +11,7 @@ import java.io.PrintStream;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.*;
 
 public class Connect4Spec {
@@ -110,5 +111,16 @@ public class Connect4Spec {
             }
         }
         assertTrue("The game is finished", tested.isFinished());
+    }
+
+    @Test
+    public void when4VerticalDiscsAreConnectedThenPlayerWins() {
+        for (int row = 0; row < 3; row++) {
+            tested.putDiscInColumn(1); // R
+            tested.putDiscInColumn(2); // G
+        }
+        assertThat(tested.getWinner(), isEmptyString());
+        tested.putDiscInColumn(1); // R
+        assertThat(tested.getWinner(), is("R"));
     }
 }
